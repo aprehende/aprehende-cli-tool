@@ -1,0 +1,14 @@
+import React from 'react';
+import stylesComponent from './{{ componentName }}.styles.ts';
+
+interface {{ componentName }}Props {}
+
+const {{ componentName }}: React.FC<{{ componentName }}Props> = () => {
+  return (
+    <div className={styles.{{ componentName }}>
+      {{ componentName }} Component
+    </div>
+  );
+};
+
+export default {{ componentName }};
