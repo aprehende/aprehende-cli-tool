@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
-import figlet from "figlet";
+import { textSync } from "figlet";
 import { Command } from "commander";
+import { createComponent } from "./utils";
 
 const main = () => {
   const program = new Command();
@@ -18,11 +19,11 @@ const main = () => {
     .option("-c --with-css <value>", "Create with css file")
     .option("-H --with-hooks <value>", "Create with hooks folder")
     .option("-C --with-components <value>", "Create with components folder")
-    .action((componentName, options) => {});
+    .action(createComponent);
 
   create.command("hook <hookName>").action((hookName) => {});
 
-  console.log(figlet.textSync("-- Aprehende cli tool --"));
+  console.log(textSync("-- Aprehende cli tool --"));
   program.parse(process.argv);
 };
 

@@ -1,11 +1,13 @@
 import React from 'react';
+{{#if withStyles}}
 import stylesComponent from './{{ componentName }}.styles.ts';
+{{/if}}
 
 interface {{ componentName }}Props {}
 
 const {{ componentName }}: React.FC<{{ componentName }}Props> = () => {
   return (
-    <div className={styles.{{ componentName }}>
+    <div>
       {{ componentName }} Component
     </div>
   );

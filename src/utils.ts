@@ -1,29 +1,49 @@
-import fs from "fs";
-import path from "path";
-import handlebars from "handlebars";
+import { join } from "path";
+import { green } from "colors";
+import { writeFileSync, readFileSync, mkdirpSync } from "fs-extra";
+import { compile } from "handlebars";
 
-export const createComponent = (componentName: string) => {
-  const componentDirectory = path.join(process.cwd(), componentName);
+const templatesDir = `${__dirname}/templates`;
 
-  if (fs.existsSync(componentDirectory)) {
-    console.error("Error: El componente ya existe");
-    process.exit(1);
-  }
+export const createComponent = (componentName: string, options: unknown) => {
+  const formatedComponentName =
+    componentName.charAt(0).toUpperCase() + componentName.slice(1);
 
-  const componentPath = path.join(componentDirectory, `${componentName}.tsx`);
-  const styleComponentPath = path.join(
-    componentDirectory,
-    `${componentName}.styles.ts`
+  const componentPath = join(process.cwd(), formatedComponentName);
+
+  mkdirpSync(componentPath);
+  console.log(green("Folder created successfully"));
+
+  const componentTemplate = readFileSync(
+    `${templatesDir}/component.hbs`,
+    "utf-8"
   );
-  fs.mkdirSync(componentDirectory);
 
-  const templateFile = fs.readFileSync("./templates/component.hbs", "utf-8");
-  const templateComponent = handlebars.compile(templateFile);
-  const renderedTemplateComponent = templateComponent({
-    componentName,
+  const componentTemplateContent = compile(componentTemplate)({
+    componentName: formatedComponentName,
   });
 
-  fs.writeFileSync(componentPath, renderedTemplateComponent);
+  writeFileSync(
+    `${componentPath}/${formatedComponentName}.tsx`,
+    componentTemplateContent
+  );
+  console.log(green("Component created successfully"));
 
-  console.log(`Componente ${componentName} creado con éxito.`);
+  // TODO create barrels
+  const indexComponentTemplate = readFileSync(
+    `${templatesDir}/barrel.hbs`,
+    "utf-8"
+  );
+
+  const indexComponentTemplateContent = compile(indexComponentTemplate)({
+    componentName: formatedComponentName,
+    withStyle: (options["with-css"] as Object) || false,
+  });
+
+  writeFileSync(`${componentPath}/index.ts`, indexComponentTemplateContent);
+  console.log(green("Barrel created successfully"));
+
+  console.log(
+    green(`Creation of ${formatedComponentName} component completed`)
+  );
 };
