@@ -5,7 +5,12 @@ import { compile } from "handlebars";
 
 const templatesDir = `${__dirname}/templates`;
 
-export const createComponent = (componentName: string, options: unknown) => {
+interface IOptions {
+  [key: string]: string | boolean | undefined;
+}
+
+export const createComponent = (componentName: string, options: IOptions) => {
+  console.log(options);
   const formatedComponentName =
     componentName.charAt(0).toUpperCase() + componentName.slice(1);
 
@@ -21,6 +26,7 @@ export const createComponent = (componentName: string, options: unknown) => {
 
   const componentTemplateContent = compile(componentTemplate)({
     componentName: formatedComponentName,
+    withStyled: options["withStyled"] ? true : false,
   });
 
   writeFileSync(
@@ -37,11 +43,25 @@ export const createComponent = (componentName: string, options: unknown) => {
 
   const indexComponentTemplateContent = compile(indexComponentTemplate)({
     componentName: formatedComponentName,
-    withStyle: (options["with-css"] as Object) || false,
   });
 
   writeFileSync(`${componentPath}/index.ts`, indexComponentTemplateContent);
   console.log(green("Barrel created successfully"));
+
+  if (options["withStyled"]) {
+    const styledTemplate = readFileSync(
+      `${templatesDir}/styled-component.hbs`,
+      "utf-8"
+    );
+    const styledTemplateContent = compile(styledTemplate)({
+      componentName: formatedComponentName,
+    });
+    writeFileSync(
+      `${componentPath}/${formatedComponentName}.styles.ts`,
+      styledTemplateContent
+    );
+    console.log(green("Styled created successfully"));
+  }
 
   console.log(
     green(`Creation of ${formatedComponentName} component completed`)

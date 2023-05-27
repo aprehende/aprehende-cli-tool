@@ -16,9 +16,10 @@ const main = () => {
 
   create
     .command("component <componentName>")
-    .option("-c --with-css <value>", "Create with css file")
-    .option("-H --with-hooks <value>", "Create with hooks folder")
-    .option("-C --with-components <value>", "Create with components folder")
+    .option("-c --with-css", "Create with css file")
+    .option("-s --with-styled", "Create with styled components")
+    .option("-H --with-hooks", "Create with hooks folder")
+    .option("-C --with-components", "Create with components folder")
     .action(createComponent);
 
   create.command("hook <hookName>").action((hookName) => {});

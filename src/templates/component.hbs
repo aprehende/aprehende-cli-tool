@@ -1,15 +1,22 @@
 import React from 'react';
-{{#if withStyles}}
-import stylesComponent from './{{ componentName }}.styles.ts';
+{{#if withStyled}}
+import { {{ componentName }} } from './{{ componentName }}.styles';
 {{/if}}
 
 interface {{ componentName }}Props {}
-
 const {{ componentName }}: React.FC<{{ componentName }}Props> = () => {
   return (
+  {{#if withStyled}}
+    <{{ componentName }}>
+  {{else}}
     <div>
-      {{ componentName }} Component
+  {{/if}}
+        {{ componentName }} Component
+  {{#if withStyled}}
+    </{{ componentName }}>
+  {{else}}
     </div>
+  {{/if}}
   );
 };
 
