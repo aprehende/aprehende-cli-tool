@@ -2,6 +2,9 @@ import React from 'react';
 {{#if withStyled}}
 import { {{ componentName }} } from './{{ componentName }}.styles';
 {{/if}}
+{{#if withCss}}
+import './{{ componentName }}.css';
+{{/if}}
 
 interface {{ componentName }}Props {}
 const {{ componentName }}: React.FC<{{ componentName }}Props> = () => {

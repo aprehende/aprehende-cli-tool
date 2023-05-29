@@ -10,7 +10,6 @@ interface IOptions {
 }
 
 export const createComponent = (componentName: string, options: IOptions) => {
-  console.log(options);
   const formatedComponentName =
     componentName.charAt(0).toUpperCase() + componentName.slice(1);
 
@@ -26,14 +25,30 @@ export const createComponent = (componentName: string, options: IOptions) => {
 
   const componentTemplateContent = compile(componentTemplate)({
     componentName: formatedComponentName,
-    withStyled: options["withStyled"] ? true : false,
+    withCss: options["withCss"] ? true : false
   });
 
   writeFileSync(
     `${componentPath}/${formatedComponentName}.tsx`,
     componentTemplateContent
   );
-  console.log(green("Component created successfully"));
+
+if(options?.withCss){
+  const cssTemplate = readFileSync(
+    `${templatesDir}/css.hbs`,
+    "utf-8"
+  );
+
+  const cssTemplateContent = compile(cssTemplate)({
+    componentName: formatedComponentName,
+  });
+
+  writeFileSync(
+    `${componentPath}/${formatedComponentName}.css`,
+    cssTemplateContent
+  );
+  console.log(green("Css created successfully"));
+}
 
   // TODO create barrels
   const indexComponentTemplate = readFileSync(
