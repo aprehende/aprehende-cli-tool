@@ -28,29 +28,21 @@ export const createComponent = (componentName: string, options: IOptions) => {
     withCss: options["withCss"] ? true : false
   });
 
-
   writeFileSync(
     `${componentPath}/${formatedComponentName}.tsx`,
     componentTemplateContent
   );
 
- 
-
-  //style
 if(options?.withCss){
-
-  //read hbs
   const cssTemplate = readFileSync(
     `${templatesDir}/css.hbs`,
     "utf-8"
   );
 
-//compile css template
   const cssTemplateContent = compile(cssTemplate)({
     componentName: formatedComponentName,
   });
 
-  //create empty css file
   writeFileSync(
     `${componentPath}/${formatedComponentName}.css`,
     cssTemplateContent
