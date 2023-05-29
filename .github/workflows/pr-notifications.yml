@@ -1,0 +1,19 @@
+name: Notification on pr
+
+on:
+  - pull_request_target
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Discord notification
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          DISCORD_USERNAME: APREHENBOT
+          DISCORD_AVATAR: https://media.npr.org/assets/img/2011/10/05/bb_412-413_0607b_0894_wide-5f79ca3fee9dd72f6abe4b2b295ac99e438b9688-s1100-c50.jpg
+
+        uses: Ilshidur/action-discord@master
+        with:
+          args: "A new PR has been opened by ${{ github.actor }} on ${{ github.repository }}. Check it out here: ${{ github.event.pull_request.html_url }}"

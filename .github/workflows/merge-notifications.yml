@@ -1,0 +1,20 @@
+name: Notification on mr
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Discord notification on merge
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          DISCORD_USERNAME: APREHENBOT
+          DISCORD_AVATAR: https://media.npr.org/assets/img/2011/10/05/bb_412-413_0607b_0894_wide-5f79ca3fee9dd72f6abe4b2b295ac99e438b9688-s1100-c50.jpg
+        uses: Ilshidur/action-discord@master
+        with:
+          args: "@everyone A new MR has been merged by ${{ github.actor }} on ${{ github.repository }} https://github.com/aprehende/aprehende-cli-tool"
