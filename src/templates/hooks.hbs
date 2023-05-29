@@ -1,0 +1,20 @@
+import { useState } from 'react';
+{{#if withStyled}}
+import { use{{ componentName }} } from './use{{ componentName }}.styles';
+{{/if}}
+
+interface {{ componentName }}Props {
+    name: string;
+    setName: (name: string) => void;
+}
+
+const use{{ componentName }} = (): {{ componentName }}Props => {
+    const [name, setName] = useState<string>('');
+
+    return {
+        name,
+        setName,
+    };
+};
+
+export default use{{ componentName }};
