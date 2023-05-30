@@ -1,0 +1,12 @@
+import React, { useState } from 'react';
+
+const useHello = () => {
+  const [name, setName] = useState('');
+
+  return {
+    name,
+    setName
+  };
+};
+
+export default useHello;

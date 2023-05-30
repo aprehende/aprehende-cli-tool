@@ -1,0 +1,17 @@
+import { useState } from 'react';
+
+interface useHelloHookProps {
+  name: string;
+  setName: (name: string) => void;
+}
+
+const useHello = (): useHelloHookProps => {
+  const [name, setName] = useState('');
+
+  return {
+    name,
+    setName
+  };
+};
+
+export default useHello;
