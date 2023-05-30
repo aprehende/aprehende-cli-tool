@@ -1,13 +1,12 @@
 {
   "compilerOptions": {
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "rootDir": "src",
     "outDir": "dist",
+    "target": "es6",
     "module": "commonjs",
-    "noImplicitAny": true,
     "removeComments": true,
-    "preserveConstEnums": true,
-    "sourceMap": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true
+    "sourceMap": true
   }
 }
