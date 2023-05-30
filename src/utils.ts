@@ -3,8 +3,10 @@ import { blue } from "colors";
 import loading from "loading-cli";
 import { compile } from "handlebars";
 import { writeFileSync, readFileSync, mkdirpSync } from "fs-extra";
+import { mkdir, mkdirSync } from "fs";
 
 const templatesComponentDir = `${__dirname}/templates/component`;
+const templatesComponentsDir = `${__dirname}/templates/components`;
 
 interface IOptions {
   [key: string]: string | boolean | undefined;
@@ -108,6 +110,56 @@ export const createComponent = async (
     writeFileSync(
       `${componentPath}/${formatedComponentName}.styles.${extension}`,
       styledTemplateContent
+    );
+  }
+  if (options["withComponents"]) {
+    loader.clear();
+    loader.text = "Creating  component button";
+    let componentsTemplatePath;
+    if (isOnlyJs)
+      componentsTemplatePath = `${templatesComponentsDir}/javascript/button.hbs`;
+    else
+      componentsTemplatePath = `${templatesComponentsDir}/typescript/button.hbs`;
+
+    const componentsPath = `${componentPath}/components`;
+    const componentsFolderPath = `${componentsPath}/${formatedComponentName}`;
+
+    const componentsTemplate = readFileSync(componentsTemplatePath, "utf-8");
+    const componentsTemplateContent = compile(componentsTemplate)({
+      componentName: formatedComponentName,
+    });
+    const componentsIndexTemplate = readFileSync(
+      `${templatesComponentsDir}/barrel.hbs`,
+      "utf-8"
+    );
+    const componentsIndexTemplateContent = compile(componentsIndexTemplate)({
+      componentName: formatedComponentName,
+    });
+    const componentsIndexAsTemplate = readFileSync(
+      `${templatesComponentsDir}/barrel.hbs`,
+      "utf-8"
+    );
+    const componentsIndexAsTemplateContent = compile(componentsIndexAsTemplate)(
+      {
+        componentName: formatedComponentName,
+        withAs: true,
+      }
+    );
+
+    await delay(500);
+    mkdirpSync(componentsPath);
+    mkdirpSync(componentsFolderPath);
+    writeFileSync(
+      `${componentsPath}/index.${extension}`,
+      componentsIndexAsTemplateContent
+    );
+    writeFileSync(
+      `${componentsFolderPath}/index.${extension}`,
+      componentsIndexTemplateContent
+    );
+    writeFileSync(
+      `${componentsFolderPath}/${formatedComponentName}.${extension}x`,
+      componentsTemplateContent
     );
   }
 
