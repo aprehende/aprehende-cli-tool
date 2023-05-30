@@ -16,9 +16,10 @@ const main = () => {
 
   create
     .command("component <componentName>")
+    .option("-j --only-js", "Create with js file")
     .option("-c --with-css", "Create with css file")
-    .option("-s --with-styled", "Create with styled components")
     .option("-H --with-hooks", "Create with hooks folder")
+    .option("-s --with-styled", "Create with styled components")
     .option("-C --with-components", "Create with components folder")
     .action(createComponent);
 

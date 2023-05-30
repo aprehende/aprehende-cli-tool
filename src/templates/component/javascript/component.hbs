@@ -1,0 +1,25 @@
+import React from 'react';
+{{#if withStyled}}
+import { {{ componentName }} } from './{{ componentName }}.styles';
+{{/if}}
+{{#if withCss}}
+import './{{ componentName }}.css';
+{{/if}}
+
+const {{ componentName }} = () => {
+  return (
+    {{#if withStyled}}
+      <{{ componentName }}>
+    {{else}}
+      <div>
+    {{/if}}
+        {{ componentName }} Component
+    {{#if withStyled}}
+      </{{ componentName }}>
+    {{else}}
+      </div>
+    {{/if}}
+  );
+};
+
+export default {{ componentName }};
