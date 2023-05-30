@@ -1,19 +1,20 @@
 import { join } from "path";
 import { blue } from "colors";
 import loading from "loading-cli";
+import { PATH } from "./constants";
+import { delay } from "./utilities";
 import { compile } from "handlebars";
 import { writeFileSync, readFileSync, mkdirpSync } from "fs-extra";
-import { mkdir, mkdirSync } from "fs-extra";
+import {
+  createStyles,
+  createStyledComponent,
+  createComponent as createComponentFunc,
+  createSubcomponent,
+} from "./generators";
 
-const templatesComponentDir = `${__dirname}/templates/component`;
-const templatesSubComponentsDir = `${__dirname}/templates/component/subcomponents`;
 interface IOptions {
   [key: string]: string | boolean | undefined;
 }
-
-const delay = (time) => {
-  return new Promise((resolve) => setTimeout(resolve, time));
-};
 
 export const createComponent = async (
   componentName: string,
@@ -30,52 +31,21 @@ export const createComponent = async (
 
   const isOnlyJs = options["onlyJs"] ? true : false;
   const extension = isOnlyJs ? "js" : "ts";
-  let componentTemplatePath;
-
-  if (isOnlyJs)
-    componentTemplatePath = `${templatesComponentDir}/javascript/component.hbs`;
-  else
-    componentTemplatePath = `${templatesComponentDir}/typescript/component.hbs`;
-
   loader.clear();
   loader.text = "Creating component";
 
-  const componentTemplate = readFileSync(componentTemplatePath, "utf-8");
-  const componentTemplateContent = compile(componentTemplate)({
+  await createComponentFunc({
+    isOnlyJs,
+    componentPath,
     componentName: formatedComponentName,
-    withCss: options["withCss"] ? true : false,
-    withStyled: options["withStyled"] ? true : false,
+    withCss: Boolean(options["withCss"]),
+    withStyled: Boolean(options["withStyled"]),
   });
-
-  await delay(500);
-  writeFileSync(
-    `${componentPath}/${formatedComponentName}.${extension}x`,
-    componentTemplateContent
-  );
-
-  if (options?.withCss) {
-    loader.clear();
-    loader.text = "Creating css file";
-    const cssTemplate = readFileSync(
-      `${templatesComponentDir}/css.hbs`,
-      "utf-8"
-    );
-
-    const cssTemplateContent = compile(cssTemplate)({
-      componentName: formatedComponentName,
-    });
-
-    await delay(500);
-    writeFileSync(
-      `${componentPath}/${formatedComponentName}.css`,
-      cssTemplateContent
-    );
-  }
 
   loader.clear();
   loader.text = "Creating barrel";
   const indexComponentTemplate = readFileSync(
-    `${templatesComponentDir}/barrel.hbs`,
+    `${PATH.COMPONENT_TEMPLATE}/barrel.hbs`,
     "utf-8"
   );
 
@@ -89,75 +59,32 @@ export const createComponent = async (
     indexComponentTemplateContent
   );
 
+  if (options["withCss"]) {
+    loader.clear();
+    loader.text = "Creating css file";
+    await createStyles({
+      componentPath,
+      componentName: formatedComponentName,
+    });
+  }
+
   if (options["withStyled"]) {
     loader.clear();
     loader.text = "Creating styled component";
-    let styledTemplatePath;
-
-    if (isOnlyJs)
-      styledTemplatePath = `${templatesComponentDir}/javascript/styled-component.hbs`;
-    else
-      styledTemplatePath = `${templatesComponentDir}/typescript/styled-component.hbs`;
-
-    const styledTemplate = readFileSync(styledTemplatePath, "utf-8");
-
-    const styledTemplateContent = compile(styledTemplate)({
+    await createStyledComponent({
+      isOnlyJs,
+      componentPath,
       componentName: formatedComponentName,
     });
-
-    await delay(500);
-    writeFileSync(
-      `${componentPath}/${formatedComponentName}.styles.${extension}`,
-      styledTemplateContent
-    );
   }
   if (options["withComponents"]) {
     loader.clear();
     loader.text = "Creating  subcomponents folder";
-    let componentsTemplatePath;
-    if (isOnlyJs)
-      componentsTemplatePath = `${templatesSubComponentsDir}/javascript/button.hbs`;
-    else
-      componentsTemplatePath = `${templatesSubComponentsDir}/typescript/button.hbs`;
-
-    const componentsPath = `${componentPath}/components`;
-    const componentsFolderPath = `${componentsPath}/${formatedComponentName}`;
-
-    const componentsTemplate = readFileSync(componentsTemplatePath, "utf-8");
-    const componentsTemplateContent = compile(componentsTemplate)({});
-    const componentsIndexTemplate = readFileSync(
-      `${templatesSubComponentsDir}/barrel.hbs`,
-      "utf-8"
-    );
-    const componentsIndexTemplateContent = compile(componentsIndexTemplate)({
+    await createSubcomponent({
+      isOnlyJs,
+      componentPath,
       componentName: formatedComponentName,
     });
-    const componentsIndexAsTemplate = readFileSync(
-      `${templatesSubComponentsDir}/barrel.hbs`,
-      "utf-8"
-    );
-    const componentsIndexAsTemplateContent = compile(componentsIndexAsTemplate)(
-      {
-        componentName: formatedComponentName,
-        withAs: true,
-      }
-    );
-
-    await delay(500);
-    mkdirpSync(componentsPath);
-    mkdirpSync(componentsFolderPath);
-    writeFileSync(
-      `${componentsPath}/index.${extension}`,
-      componentsIndexAsTemplateContent
-    );
-    writeFileSync(
-      `${componentsFolderPath}/index.${extension}`,
-      componentsIndexTemplateContent
-    );
-    writeFileSync(
-      `${componentsFolderPath}/${formatedComponentName}.${extension}x`,
-      componentsTemplateContent
-    );
   }
 
   loader.stop();
