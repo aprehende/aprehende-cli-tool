@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React from 'react';
 
 type useHelloHook = (name: string) => string;
 
@@ -7,7 +7,7 @@ const useHello = (): useHelloHook => {
     return `Hello ${name}`;
   };
 
-  return greet;
+  return { greet };
 };
 
 export default useHello;

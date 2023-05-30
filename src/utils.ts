@@ -46,6 +46,7 @@ export const createComponent = async (
     componentName: formatedComponentName,
     withCss: options['withCss'] ? true : false,
     withStyled: options['withStyled'] ? true : false,
+    withHooks: options['withHooks'] ? true : false,
   });
 
   await delay(500);
@@ -125,24 +126,19 @@ export const createComponent = async (
     const hookPathFolder = `${componentPath}/hooks/useHello`;
 
     const hookTemplate = readFileSync(hookTemplatePath, 'utf-8');
-    const hookTemplateContent = compile(hookTemplate)({
-      componentName: formatedComponentName,
-    });
+    const hookTemplateContent = compile(hookTemplate)({});
 
     const indexHookTemplate = readFileSync(
       `${templatesHookDir}/barrelHook.hbs`,
       'utf-8',
     );
-    const indexHookTemplateContent = compile(indexHookTemplate)({
-      componentName: formatedComponentName,
-    });
+    const indexHookTemplateContent = compile(indexHookTemplate)({});
 
     const indexAsHookTemplate = readFileSync(
       `${templatesHookDir}/barrelHook.hbs`,
       'utf-8',
     );
     const indexAsHookTemplateContent = compile(indexAsHookTemplate)({
-      componentName: formatedComponentName,
       withAs: true,
     });
 

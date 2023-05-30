@@ -1,4 +1,7 @@
 import React from 'react';
+{{#if withHooks}}
+import { useHello } from './hooks';
+{{/if}}
 {{#if withStyled}}
 import { {{ componentName }} } from './{{ componentName }}.styles';
 {{/if}}
@@ -7,6 +10,14 @@ import './{{ componentName }}.css';
 {{/if}}
 
 const {{ componentName }} = () => {
+{{#if withHooks}}
+  const { greet } = useHello();
+
+  React.useEffect(() => {
+    greet();
+  }, []);
+{{/if}}
+
   return (
     {{#if withStyled}}
       <{{ componentName }}>
