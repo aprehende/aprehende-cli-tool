@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 const useHello = () => {
-  const [name, setName] = useState('');
-
-  return {
-    name,
-    setName
+  const greet = (name) => {
+    return `Hello ${name}`;
   };
+
+  return greet;
 };
 
 export default useHello;

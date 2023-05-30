@@ -1,17 +1,13 @@
 import { useState } from 'react';
 
-interface useHelloHookProps {
-  name: string;
-  setName: (name: string) => void;
-}
+type useHelloHook = (name: string) => string;
 
-const useHello = (): useHelloHookProps => {
-  const [name, setName] = useState('');
-
-  return {
-    name,
-    setName
+const useHello = (): useHelloHook => {
+  const greet: useHelloHook = (name) => {
+    return `Hello ${name}`;
   };
+
+  return greet;
 };
 
 export default useHello;

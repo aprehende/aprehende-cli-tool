@@ -138,11 +138,12 @@ export const createComponent = async (
     });
 
     const indexAsHookTemplate = readFileSync(
-      `${templatesHookDir}/barrelAsHook.hbs`,
+      `${templatesHookDir}/barrelHook.hbs`,
       'utf-8',
     );
     const indexAsHookTemplateContent = compile(indexAsHookTemplate)({
       componentName: formatedComponentName,
+      withAs: true,
     });
 
     await delay(500);

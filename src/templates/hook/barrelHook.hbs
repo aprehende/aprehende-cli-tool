@@ -1,1 +1,6 @@
-export { default } from './useHello';
+{{#if withAs}}
+    export { default as useHello} from './useHello';
+{{else}}
+    export { default } from './useHello';
+{{/if}} 
+
