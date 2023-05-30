@@ -3,11 +3,10 @@ import { blue } from "colors";
 import loading from "loading-cli";
 import { compile } from "handlebars";
 import { writeFileSync, readFileSync, mkdirpSync } from "fs-extra";
-import { mkdir, mkdirSync } from "fs";
+import { mkdir, mkdirSync } from "fs-extra";
 
 const templatesComponentDir = `${__dirname}/templates/component`;
-const templatesComponentsDir = `${__dirname}/templates/components`;
-
+const templatesSubComponentsDir = `${__dirname}/templates/component/subcomponents`;
 interface IOptions {
   [key: string]: string | boolean | undefined;
 }
@@ -114,29 +113,27 @@ export const createComponent = async (
   }
   if (options["withComponents"]) {
     loader.clear();
-    loader.text = "Creating  component button";
+    loader.text = "Creating  subcomponents folder";
     let componentsTemplatePath;
     if (isOnlyJs)
-      componentsTemplatePath = `${templatesComponentsDir}/javascript/button.hbs`;
+      componentsTemplatePath = `${templatesSubComponentsDir}/javascript/button.hbs`;
     else
-      componentsTemplatePath = `${templatesComponentsDir}/typescript/button.hbs`;
+      componentsTemplatePath = `${templatesSubComponentsDir}/typescript/button.hbs`;
 
     const componentsPath = `${componentPath}/components`;
     const componentsFolderPath = `${componentsPath}/${formatedComponentName}`;
 
     const componentsTemplate = readFileSync(componentsTemplatePath, "utf-8");
-    const componentsTemplateContent = compile(componentsTemplate)({
-      componentName: formatedComponentName,
-    });
+    const componentsTemplateContent = compile(componentsTemplate)({});
     const componentsIndexTemplate = readFileSync(
-      `${templatesComponentsDir}/barrel.hbs`,
+      `${templatesSubComponentsDir}/barrel.hbs`,
       "utf-8"
     );
     const componentsIndexTemplateContent = compile(componentsIndexTemplate)({
       componentName: formatedComponentName,
     });
     const componentsIndexAsTemplate = readFileSync(
-      `${templatesComponentsDir}/barrel.hbs`,
+      `${templatesSubComponentsDir}/barrel.hbs`,
       "utf-8"
     );
     const componentsIndexAsTemplateContent = compile(componentsIndexAsTemplate)(
