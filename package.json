@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc --project ./tsconfig.json && pnpm init:templates",
+    "build": "pnpm clean:dist && tsc --project ./tsconfig.json && pnpm init:templates",
     "dev": "node dist/index.js",
+    "clean:dist": "node cleanProject.js",
     "init:templates": "node initTemplates.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
