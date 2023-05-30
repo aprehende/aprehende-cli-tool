@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc src/index.ts --outDir dist && pnpm init:templates",
+    "build": "tsc --project ./tsconfig.json && pnpm init:templates",
     "dev": "node dist/index.js",
     "init:templates": "node initTemplates.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,8 +13,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^14.0.0",
     "@types/figlet": "^1.5.6",
     "@types/fs-extra": "^11.0.1",
     "@types/node": "^20.2.5",
@@ -25,6 +23,7 @@
     "commander": "^10.0.1",
     "figlet": "^1.6.0",
     "fs-extra": "^11.1.1",
-    "handlebars": "^4.7.7"
+    "handlebars": "^4.7.7",
+    "loading-cli": "^1.1.0"
   }
 }

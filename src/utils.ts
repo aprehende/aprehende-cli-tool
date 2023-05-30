@@ -1,5 +1,6 @@
 import { join } from "path";
-import { blue, green } from "colors";
+import { blue } from "colors";
+import loading from "loading-cli";
 import { compile } from "handlebars";
 import { writeFileSync, readFileSync, mkdirpSync } from "fs-extra";
 
@@ -9,14 +10,22 @@ interface IOptions {
   [key: string]: string | boolean | undefined;
 }
 
-export const createComponent = (componentName: string, options: IOptions) => {
+const delay = (time) => {
+  return new Promise((resolve) => setTimeout(resolve, time));
+};
+
+export const createComponent = async (
+  componentName: string,
+  options: IOptions
+) => {
+  const loader = loading("Creating component").start();
   const formatedComponentName =
     componentName.charAt(0).toUpperCase() + componentName.slice(1);
 
   const componentPath = join(process.cwd(), formatedComponentName);
 
+  await delay(500);
   mkdirpSync(componentPath);
-  console.log(green("Folder created successfully"));
 
   const isOnlyJs = options["onlyJs"] ? true : false;
   const extension = isOnlyJs ? "js" : "ts";
@@ -27,21 +36,25 @@ export const createComponent = (componentName: string, options: IOptions) => {
   else
     componentTemplatePath = `${templatesComponentDir}/typescript/component.hbs`;
 
-  const componentTemplate = readFileSync(componentTemplatePath, "utf-8");
+  loader.clear();
+  loader.text = "Creating component";
 
+  const componentTemplate = readFileSync(componentTemplatePath, "utf-8");
   const componentTemplateContent = compile(componentTemplate)({
     componentName: formatedComponentName,
     withCss: options["withCss"] ? true : false,
     withStyled: options["withStyled"] ? true : false,
   });
 
+  await delay(500);
   writeFileSync(
     `${componentPath}/${formatedComponentName}.${extension}x`,
     componentTemplateContent
   );
-  console.log(green("Component created successfully"));
 
   if (options?.withCss) {
+    loader.clear();
+    loader.text = "Creating css file";
     const cssTemplate = readFileSync(
       `${templatesComponentDir}/css.hbs`,
       "utf-8"
@@ -51,14 +64,15 @@ export const createComponent = (componentName: string, options: IOptions) => {
       componentName: formatedComponentName,
     });
 
+    await delay(500);
     writeFileSync(
       `${componentPath}/${formatedComponentName}.css`,
       cssTemplateContent
     );
-    console.log(green("Css created successfully"));
   }
 
-  // TODO create barrels
+  loader.clear();
+  loader.text = "Creating barrel";
   const indexComponentTemplate = readFileSync(
     `${templatesComponentDir}/barrel.hbs`,
     "utf-8"
@@ -68,13 +82,15 @@ export const createComponent = (componentName: string, options: IOptions) => {
     componentName: formatedComponentName,
   });
 
+  await delay(500);
   writeFileSync(
     `${componentPath}/index.${extension}`,
     indexComponentTemplateContent
   );
-  console.log(green("Barrel created successfully"));
 
   if (options["withStyled"]) {
+    loader.clear();
+    loader.text = "Creating styled component";
     let styledTemplatePath;
 
     if (isOnlyJs)
@@ -87,12 +103,15 @@ export const createComponent = (componentName: string, options: IOptions) => {
     const styledTemplateContent = compile(styledTemplate)({
       componentName: formatedComponentName,
     });
+
+    await delay(500);
     writeFileSync(
       `${componentPath}/${formatedComponentName}.styles.${extension}`,
       styledTemplateContent
     );
-    console.log(green("Styled created successfully"));
   }
 
+  loader.stop();
+  loader.clear();
   console.log(blue(`Creation of ${formatedComponentName} component completed`));
 };
