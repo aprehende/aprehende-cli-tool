@@ -28,7 +28,11 @@ const main = () => {
     .option('-j --only-js', 'Create with js file')
     .action(createHook);
 
-  console.log(textSync('-- Aprehende cli tool --'));
+  console.log(
+    textSync('Aprehende cli', {
+      width: 80,
+    })
+  );
   program.parse(process.argv);
 };
 
