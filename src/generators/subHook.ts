@@ -19,39 +19,34 @@ export const createSubHooks = async ({ isOnlyJs, componentPath }: IOption) => {
   const extension = isOnlyJs ? 'js' : 'ts';
 
   const hookPath = `${componentPath}/hooks`;
-  const hookPathFolder = `${componentPath}/hooks/useHello`;
 
   const indexHookTemplate = readFileSync(
-    `${PATH.HOOK_TEMPLATE}/barrelHook.hbs`,
+    `${PATH.HOOK_TEMPLATE}/barrel.hbs`,
     'utf-8'
   );
   const indexHookTemplateContent = compile(indexHookTemplate)({
     hookName: hookName,
   });
 
-  const indexAsHookTemplate = readFileSync(
-    `${PATH.HOOK_TEMPLATE}/barrelHook.hbs`,
-    'utf-8'
-  );
-  const indexAsHookTemplateContent = compile(indexAsHookTemplate)({
+  const indexAsHookTemplateContent = compile(indexHookTemplate)({
     withAs: true,
     hookName: hookName,
   });
 
   await delay(500);
   mkdirpSync(hookPath);
-  mkdirpSync(hookPathFolder);
+  mkdirpSync(`${hookPath}/${hookName}`);
 
   writeFileSync(`${hookPath}/index.${extension}`, indexAsHookTemplateContent);
 
   createHookFunc({
     isOnlyJs,
-    hookPath: hookPathFolder,
-    hookName: 'useHello',
+    hookPath: `${hookPath}/${hookName}`,
+    hookName,
   });
 
   writeFileSync(
-    `${hookPathFolder}/index.${extension}`,
+    `${hookPath}/${hookName}/index.${extension}`,
     indexHookTemplateContent
   );
 };
