@@ -21,6 +21,10 @@ const main = () => {
     .option('-H --with-hooks', 'Create with hooks folder')
     .option('-s --with-styled', 'Create with styled components')
     .option('-C --with-components', 'Create with components folder')
+    .option(
+      '-f --with-full',
+      'Create with all options (css, styled, components, hooks)'
+    )
     .action(createComponent);
 
   create
