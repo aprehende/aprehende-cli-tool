@@ -1,13 +1,12 @@
 import React from 'react';
 
-type useHelloHook = (name: string) => string;
-
-const useHello = (): useHelloHook => {
-  const greet: useHelloHook = (name): string => {
-    return `Hello ${name}`;
+interface {{hookName}}Props {}
+const {{hookName}} = ({}: {{hookName}}Props) => {
+  const greet = () => {
+  console.log('Hello, world!');
   };
 
   return { greet };
 };
 
-export default useHello;
+export default {{hookName}};

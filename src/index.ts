@@ -2,7 +2,7 @@
 
 import { textSync } from "figlet";
 import { Command } from "commander";
-import { createComponent } from "./utils";
+import { createComponent, createHook } from "./actions";
 
 const main = () => {
   const program = new Command();
@@ -23,7 +23,10 @@ const main = () => {
     .option("-C --with-components", "Create with components folder")
     .action(createComponent);
 
-  create.command("hook <hookName>").action((hookName) => {});
+  create
+    .command("hook <hookName>")
+    .option("-j --only-js", "Create with js file")
+    .action(createHook);
 
   console.log(textSync("-- Aprehende cli tool --"));
   program.parse(process.argv);

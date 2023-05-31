@@ -9,7 +9,7 @@ interface IOption {
   componentPath: string;
 }
 
-export const createHook = async ({
+export const createHooks = async ({
   isOnlyJs,
   componentName,
   componentPath,

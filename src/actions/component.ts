@@ -1,8 +1,8 @@
 import { join } from 'path';
 import { blue } from 'colors';
 import loading from 'loading-cli';
-import { PATH } from './constants';
-import { delay } from './utilities';
+import { PATH } from '../constants';
+import { delay } from '../utilities';
 import { compile } from 'handlebars';
 import { writeFileSync, readFileSync, mkdirpSync } from 'fs-extra';
 import {
@@ -10,7 +10,7 @@ import {
   createStyledComponent,
   createComponent as createComponentFunc,
   createHooks,
-} from './generators';
+} from '../generators';
 
 const templatesComponentDir = `${__dirname}/templates/component`;
 const templatesHookDir = `${__dirname}/templates/hook`;
