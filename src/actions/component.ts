@@ -62,7 +62,7 @@ export const createComponent = async (
     indexComponentTemplateContent
   );
 
-  if (options['withCss']) {
+  if (options['withCss'] || options['withFull']) {
     loader.clear();
     loader.text = 'Creating css file';
     await createStyles({
@@ -71,7 +71,7 @@ export const createComponent = async (
     });
   }
 
-  if (options['withStyled']) {
+  if (options['withStyled'] || options['withFull']) {
     loader.clear();
     loader.text = 'Creating styled component';
     await createStyledComponent({
@@ -80,7 +80,7 @@ export const createComponent = async (
       componentName: formatedComponentName,
     });
   }
-  if (options['withComponents']) {
+  if (options['withComponents'] || options['withFull']) {
     loader.clear();
     loader.text = 'Creating  subcomponents folder';
     await createSubcomponent({
@@ -89,7 +89,7 @@ export const createComponent = async (
     });
   }
 
-  if (options['withHooks']) {
+  if (options['withHooks'] || options['withFull']) {
     loader.clear();
     loader.text = 'Creating hook';
     await createSubHooks({
