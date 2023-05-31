@@ -9,7 +9,7 @@ interface IOption {
   componentPath: string;
 }
 
-export const createHooks = async ({ isOnlyJs, componentPath }: IOption) => {
+export const createSubHooks = async ({ isOnlyJs, componentPath }: IOption) => {
   let hookTemplatePath;
   const hookName = 'useHello';
 

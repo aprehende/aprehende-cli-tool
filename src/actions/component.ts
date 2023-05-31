@@ -10,7 +10,7 @@ import {
   createStyledComponent,
   createComponent as createComponentFunc,
   createSubcomponent,
-  createHooks,
+  createSubHooks,
 } from '../generators';
 
 interface IOptions {
@@ -92,7 +92,7 @@ export const createComponent = async (
   if (options['withHooks']) {
     loader.clear();
     loader.text = 'Creating hook';
-    await createHooks({
+    await createSubHooks({
       isOnlyJs,
       componentPath,
     });

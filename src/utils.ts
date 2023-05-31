@@ -9,7 +9,7 @@ import {
   createStyles,
   createStyledComponent,
   createComponent as createComponentFunc,
-  createHooks,
+  createSubHooks,
 } from './generators';
 
 const templatesComponentDir = `${__dirname}/templates/component`;
@@ -85,7 +85,7 @@ export const createComponent = async (
   if (options['withHooks']) {
     loader.clear();
     loader.text = 'Creating hook';
-    await createHooks({
+    await createSubHooks({
       isOnlyJs,
       componentPath,
     });
