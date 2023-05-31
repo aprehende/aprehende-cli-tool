@@ -10,6 +10,7 @@ import {
   createStyledComponent,
   createComponent as createComponentFunc,
   createSubcomponent,
+  createSubHooks,
 } from '../generators';
 
 interface IOptions {
@@ -41,6 +42,7 @@ export const createComponent = async (
     withCss: Boolean(options['withCss']),
     withStyled: Boolean(options['withStyled']),
     withComponents: Boolean(options['withComponents']),
+    withHooks: Boolean(options['withHooks']),
   });
 
   loader.clear();
@@ -84,10 +86,17 @@ export const createComponent = async (
     await createSubcomponent({
       isOnlyJs,
       componentPath,
-      componentName: formatedComponentName,
     });
   }
 
+  if (options['withHooks']) {
+    loader.clear();
+    loader.text = 'Creating hook';
+    await createSubHooks({
+      isOnlyJs,
+      componentPath,
+    });
+  }
   loader.stop();
   loader.clear();
   console.log(blue(`Creation of ${formatedComponentName} component completed`));

@@ -9,6 +9,7 @@ interface IOption {
   withStyled?: boolean;
   componentName: string;
   componentPath: string;
+  withHooks?: boolean;
   withComponents?: boolean;
 }
 
@@ -19,6 +20,7 @@ export const createComponent = async ({
   componentName,
   componentPath,
   withComponents,
+  withHooks,
 }: IOption) => {
   let componentTemplatePath;
   const extension = isOnlyJs ? "js" : "ts";
@@ -33,6 +35,7 @@ export const createComponent = async ({
     componentName,
     withCss: withCss ? true : false,
     withStyled: withStyled ? true : false,
+    withHooks: withHooks ? true : false,
     withComponents: withComponents ? true : false,
   });
 

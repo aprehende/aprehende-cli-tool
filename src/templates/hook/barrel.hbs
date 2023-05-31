@@ -1,5 +1,5 @@
-{{#if withAlias}}
-export { default as {{hookName}} } from './{{hookName}}';
+{{#if withAs}}
+export { default as {{ hookName }} } from './{{ hookName }}';
 {{else}}
-export { default } from './{{hookName}}';
+export { default } from './{{ hookName }}';
 {{/if}}
