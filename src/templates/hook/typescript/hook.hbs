@@ -3,7 +3,7 @@ import React from 'react';
 type useHelloHook = (name: string) => string;
 
 const useHello = (): useHelloHook => {
-  const greet: useHelloHook = (name) => {
+  const greet: useHelloHook = (name): string => {
     return `Hello ${name}`;
   };
 
