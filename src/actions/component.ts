@@ -1,15 +1,15 @@
 import { join } from "path";
 import { blue } from "colors";
 import loading from "loading-cli";
-import { PATH } from "./constants";
-import { delay } from "./utilities";
+import { PATH } from "../constants";
+import { delay } from "../utilities";
 import { compile } from "handlebars";
 import { writeFileSync, readFileSync, mkdirpSync } from "fs-extra";
 import {
   createStyles,
   createStyledComponent,
   createComponent as createComponentFunc,
-} from "./generators";
+} from "../generators";
 
 interface IOptions {
   [key: string]: string | boolean | undefined;
