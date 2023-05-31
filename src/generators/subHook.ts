@@ -2,47 +2,40 @@ import { PATH } from '../constants';
 import { compile } from 'handlebars';
 import { delay } from '../utilities';
 import { mkdirpSync, readFileSync, writeFileSync } from 'fs-extra';
+import { createHook as createHookFunc } from '../generators';
 
 interface IOption {
   isOnlyJs?: boolean;
   componentPath: string;
 }
 
-export const createHooks = async ({
-  isOnlyJs,
-  componentPath,
-}: IOption) => {
+export const createHooks = async ({ isOnlyJs, componentPath }: IOption) => {
   let hookTemplatePath;
+  const hookName = 'useHello';
 
   if (isOnlyJs) hookTemplatePath = `${PATH.HOOK_TEMPLATE}/javascript/hook.hbs`;
   else hookTemplatePath = `${PATH.HOOK_TEMPLATE}/typescript/hook.hbs`;
 
   const extension = isOnlyJs ? 'js' : 'ts';
-  const extensionX = isOnlyJs ? 'jsx' : 'tsx';
 
   const hookPath = `${componentPath}/hooks`;
   const hookPathFolder = `${componentPath}/hooks/useHello`;
 
-  const hookTemplate = readFileSync(hookTemplatePath, 'utf-8');
-  const hookTemplateContent = compile(hookTemplate)({
-    withHook: true,
-  });
-
   const indexHookTemplate = readFileSync(
     `${PATH.HOOK_TEMPLATE}/barrelHook.hbs`,
-    'utf-8',
+    'utf-8'
   );
   const indexHookTemplateContent = compile(indexHookTemplate)({
-    withHook: true,
+    hookName: hookName,
   });
 
   const indexAsHookTemplate = readFileSync(
     `${PATH.HOOK_TEMPLATE}/barrelHook.hbs`,
-    'utf-8',
+    'utf-8'
   );
   const indexAsHookTemplateContent = compile(indexAsHookTemplate)({
     withAs: true,
-    withHook: true,
+    hookName: hookName,
   });
 
   await delay(500);
@@ -51,13 +44,14 @@ export const createHooks = async ({
 
   writeFileSync(`${hookPath}/index.${extension}`, indexAsHookTemplateContent);
 
-  writeFileSync(
-    `${hookPathFolder}/useHello.${extensionX}`,
-    hookTemplateContent,
-  );
+  createHookFunc({
+    isOnlyJs,
+    hookPath: hookPathFolder,
+    hookName: 'useHello',
+  });
 
   writeFileSync(
     `${hookPathFolder}/index.${extension}`,
-    indexHookTemplateContent,
+    indexHookTemplateContent
   );
 };

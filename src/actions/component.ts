@@ -10,7 +10,7 @@ import {
   createStyledComponent,
   createComponent as createComponentFunc,
   createSubcomponent,
-  createHooks
+  createHooks,
 } from '../generators';
 
 interface IOptions {
@@ -19,7 +19,7 @@ interface IOptions {
 
 export const createComponent = async (
   componentName: string,
-  options: IOptions,
+  options: IOptions
 ) => {
   const loader = loading('Creating component').start();
   const formatedComponentName =
@@ -49,7 +49,7 @@ export const createComponent = async (
   loader.text = 'Creating barrel';
   const indexComponentTemplate = readFileSync(
     `${PATH.COMPONENT_TEMPLATE}/barrel.hbs`,
-    'utf-8',
+    'utf-8'
   );
 
   const indexComponentTemplateContent = compile(indexComponentTemplate)({
@@ -59,7 +59,7 @@ export const createComponent = async (
   await delay(500);
   writeFileSync(
     `${componentPath}/index.${extension}`,
-    indexComponentTemplateContent,
+    indexComponentTemplateContent
   );
 
   if (options['withCss']) {
@@ -86,7 +86,6 @@ export const createComponent = async (
     await createSubcomponent({
       isOnlyJs,
       componentPath,
-      componentName: formatedComponentName,
     });
   }
 
@@ -97,11 +96,8 @@ export const createComponent = async (
       isOnlyJs,
       componentPath,
     });
-
-    loader.stop();
-    loader.clear();
-    console.log(
-      blue(`Creation of ${formatedComponentName} component completed`),
-    );
   }
+  loader.stop();
+  loader.clear();
+  console.log(blue(`Creation of ${formatedComponentName} component completed`));
 };

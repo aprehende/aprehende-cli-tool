@@ -5,13 +5,11 @@ import { delay } from "../utilities";
 
 interface IOptions {
   isOnlyJs?: boolean;
-  componentName: string;
   componentPath: string;
 }
 
 export const createSubcomponent = async ({
   isOnlyJs,
-  componentName,
   componentPath,
 }: IOptions) => {
   let componentsTemplatePath;
