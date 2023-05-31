@@ -1,17 +1,28 @@
 {
   "name": "aprehende-cli-tool",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Learn CLI Tool is a command line interface (CLI) tool designed to improve your workflow when developing applications with React.",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "pnpm clean:dist && tsc --project ./tsconfig.json && pnpm init:templates",
+    "build": "pnpm clean:dist && tsc --project ./tsconfig.prod.json && pnpm init:templates",
     "dev": "node dist/index.js",
     "clean:dist": "node cleanProject.js",
     "init:templates": "node initTemplates.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "repository": "https://github.com/aprehende/aprehende-cli-tool.git",
+  "bin": {
+    "aprehende": "./dist/index.js"
+  },
+  "keywords": [
+    "cli",
+    "aprehende",
+    "react",
+    "components generator",
+    "templates"
+  ],
+  "author": "Aprehende team",
   "license": "ISC",
   "devDependencies": {
     "@types/figlet": "^1.5.6",
