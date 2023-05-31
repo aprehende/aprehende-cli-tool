@@ -1,6 +1,13 @@
 {{#if withAs}}
-export { default as useHello} from './useHello';
+  {{#if withHook}}
+export { default as useHello } from './useHello';
+  {{else}}
+export { default as {{hookName}} } from './{{hookName}}';
+  {{/if}}
 {{else}}
+  {{#if withHook}}
 export { default } from './useHello';
-{{/if}} 
-
+  {{else}}
+export { default } from './{{hookName}}';
+  {{/if}}
+{{/if}}

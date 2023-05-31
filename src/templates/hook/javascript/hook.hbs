@@ -1,5 +1,17 @@
 import React from 'react';
 
+{{#if withHook}}
+const useHello = () => {
+  const greet = () => {
+    console.log('Hello, world!');
+  };
+
+  return { greet };
+};
+
+export default useHello;
+
+{{else}}
 const {{hookName}} = () => {
   const greet = () => {
     console.log('Hello, world!');
@@ -9,3 +21,4 @@ const {{hookName}} = () => {
 };
 
 export default {{hookName}};
+{{/if}}

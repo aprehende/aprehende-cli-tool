@@ -5,13 +5,11 @@ import { mkdirpSync, readFileSync, writeFileSync } from 'fs-extra';
 
 interface IOption {
   isOnlyJs?: boolean;
-  componentName: string;
   componentPath: string;
 }
 
 export const createHooks = async ({
   isOnlyJs,
-  componentName,
   componentPath,
 }: IOption) => {
   let hookTemplatePath;
@@ -26,13 +24,17 @@ export const createHooks = async ({
   const hookPathFolder = `${componentPath}/hooks/useHello`;
 
   const hookTemplate = readFileSync(hookTemplatePath, 'utf-8');
-  const hookTemplateContent = compile(hookTemplate)({});
+  const hookTemplateContent = compile(hookTemplate)({
+    withHook: true,
+  });
 
   const indexHookTemplate = readFileSync(
     `${PATH.HOOK_TEMPLATE}/barrelHook.hbs`,
     'utf-8',
   );
-  const indexHookTemplateContent = compile(indexHookTemplate)({});
+  const indexHookTemplateContent = compile(indexHookTemplate)({
+    withHook: true,
+  });
 
   const indexAsHookTemplate = readFileSync(
     `${PATH.HOOK_TEMPLATE}/barrelHook.hbs`,
@@ -40,6 +42,7 @@ export const createHooks = async ({
   );
   const indexAsHookTemplateContent = compile(indexAsHookTemplate)({
     withAs: true,
+    withHook: true,
   });
 
   await delay(500);

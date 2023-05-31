@@ -1,6 +1,20 @@
 import React from 'react';
 
+{{#if withHook}}
+interface useHelloProps {}
+
+const useHello = ({}: useHelloProps) => {
+  const greet = () => {
+    console.log('Hello, world!');
+  };
+
+  return { greet };
+};
+
+export default useHello;
+{{else}}
 interface {{hookName}}Props {}
+
 const {{hookName}} = ({}: {{hookName}}Props) => {
   const greet = () => {
   console.log('Hello, world!');
@@ -10,3 +24,4 @@ const {{hookName}} = ({}: {{hookName}}Props) => {
 };
 
 export default {{hookName}};
+{{/if}}

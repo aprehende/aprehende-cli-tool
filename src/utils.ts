@@ -88,7 +88,6 @@ export const createComponent = async (
     await createHooks({
       isOnlyJs,
       componentPath,
-      componentName: formatedComponentName,
     });
 
     loader.stop();
