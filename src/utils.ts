@@ -40,6 +40,7 @@ export const createComponent = async (
     componentName: formatedComponentName,
     withCss: Boolean(options["withCss"]),
     withStyled: Boolean(options["withStyled"]),
+    withComponents: Boolean(options["withComponents"]),
   });
 
   loader.clear();

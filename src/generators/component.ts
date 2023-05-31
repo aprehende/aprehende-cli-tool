@@ -9,6 +9,7 @@ interface IOption {
   withStyled?: boolean;
   componentName: string;
   componentPath: string;
+  withComponents?: boolean;
 }
 
 export const createComponent = async ({
@@ -17,6 +18,7 @@ export const createComponent = async ({
   withStyled,
   componentName,
   componentPath,
+  withComponents,
 }: IOption) => {
   let componentTemplatePath;
   const extension = isOnlyJs ? "js" : "ts";
@@ -31,6 +33,7 @@ export const createComponent = async ({
     componentName,
     withCss: withCss ? true : false,
     withStyled: withStyled ? true : false,
+    withComponents: withComponents ? true : false,
   });
 
   await delay(500);
