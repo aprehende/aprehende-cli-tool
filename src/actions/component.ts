@@ -9,11 +9,9 @@ import {
   createStyles,
   createStyledComponent,
   createComponent as createComponentFunc,
-  createHooks,
+  createSubcomponent,
+  createHooks
 } from '../generators';
-
-const templatesComponentDir = `${__dirname}/templates/component`;
-const templatesHookDir = `${__dirname}/templates/hook`;
 
 interface IOptions {
   [key: string]: string | boolean | undefined;
@@ -43,6 +41,7 @@ export const createComponent = async (
     componentName: formatedComponentName,
     withCss: Boolean(options['withCss']),
     withStyled: Boolean(options['withStyled']),
+    withComponents: Boolean(options['withComponents']),
     withHooks: Boolean(options['withHooks']),
   });
 
@@ -76,6 +75,15 @@ export const createComponent = async (
     loader.clear();
     loader.text = 'Creating styled component';
     await createStyledComponent({
+      isOnlyJs,
+      componentPath,
+      componentName: formatedComponentName,
+    });
+  }
+  if (options['withComponents']) {
+    loader.clear();
+    loader.text = 'Creating  subcomponents folder';
+    await createSubcomponent({
       isOnlyJs,
       componentPath,
       componentName: formatedComponentName,

@@ -2,6 +2,9 @@ import React from 'react';
 {{#if withHooks}}
 import { useHello } from './hooks';
 {{/if}}
+{{#if withComponents}}
+import { Button } from './components';
+{{/if}}
 {{#if withStyled}}
 import { {{ componentName }} } from './{{ componentName }}.styles';
 {{/if}}
@@ -25,7 +28,11 @@ const {{ componentName }}: React.FC<{{ componentName }}Props> = () => {
   {{else}}
     <div>
   {{/if}}
-        {{ componentName }} Component
+      {{#if withComponents}}
+        <Button />
+      {{else}}
+        {{componentName}} Component
+      {{/if}}
   {{#if withStyled}}
     </{{ componentName }}>
   {{else}}
