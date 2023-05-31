@@ -1,7 +1,7 @@
-import { mkdirpSync, readFileSync, writeFileSync } from "fs-extra";
-import { PATH } from "../constants";
-import { compile } from "handlebars";
-import { delay } from "../utilities";
+import { mkdirpSync, readFileSync, writeFileSync } from 'fs-extra';
+import { PATH } from '../constants';
+import { compile } from 'handlebars';
+import { delay } from '../utilities';
 
 interface IOptions {
   isOnlyJs?: boolean;
@@ -13,30 +13,31 @@ export const createSubcomponent = async ({
   componentPath,
 }: IOptions) => {
   let componentsTemplatePath;
-  const extension = isOnlyJs ? "js" : "ts";
+  const extension = isOnlyJs ? 'js' : 'ts';
+  const componentName = 'Test';
   if (isOnlyJs)
-    componentsTemplatePath = `${PATH.SUBCOMPONENT_TEMPLATE}/javascript/button.hbs`;
+    componentsTemplatePath = `${PATH.SUBCOMPONENT_TEMPLATE}/javascript/test.hbs`;
   else
-    componentsTemplatePath = `${PATH.SUBCOMPONENT_TEMPLATE}/typescript/button.hbs`;
+    componentsTemplatePath = `${PATH.SUBCOMPONENT_TEMPLATE}/typescript/test.hbs`;
 
   const componentsPath = `${componentPath}/components`;
-  const componentsFolderPath = `${componentsPath}/Button`;
+  const componentsFolderPath = `${componentsPath}/Test`;
 
-  const componentsTemplate = readFileSync(componentsTemplatePath, "utf-8");
+  const componentsTemplate = readFileSync(componentsTemplatePath, 'utf-8');
   const componentsTemplateContent = compile(componentsTemplate)({});
   const componentsIndexTemplate = readFileSync(
     `${PATH.SUBCOMPONENT_TEMPLATE}/barrel.hbs`,
-    "utf-8"
+    'utf-8'
   );
   const componentsIndexTemplateContent = compile(componentsIndexTemplate)({
-    componentName: "Button",
+    componentName,
   });
   const componentsIndexAsTemplate = readFileSync(
     `${PATH.SUBCOMPONENT_TEMPLATE}/barrel.hbs`,
-    "utf-8"
+    'utf-8'
   );
   const componentsIndexAsTemplateContent = compile(componentsIndexAsTemplate)({
-    componentName: "Button",
+    componentName,
     withAs: true,
   });
 
@@ -58,7 +59,7 @@ export const createSubcomponent = async ({
 
   //subcomponent
   writeFileSync(
-    `${componentsFolderPath}/Button.${extension}x`,
+    `${componentsFolderPath}/Test.${extension}x`,
     componentsTemplateContent
   );
 };
