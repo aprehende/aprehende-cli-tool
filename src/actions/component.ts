@@ -2,7 +2,7 @@ import { join } from 'path';
 import { blue } from 'colors';
 import loading from 'loading-cli';
 import { PATH } from '../constants';
-import { delay } from '../utilities';
+import { delay, generateLoader } from '../utilities';
 import { compile } from 'handlebars';
 import { writeFileSync, readFileSync, mkdirpSync } from 'fs-extra';
 import {
@@ -21,7 +21,7 @@ export const createComponent = async (
   componentName: string,
   options: IOptions
 ) => {
-  const loader = loading('Creating component').start();
+  const folderLoader = generateLoader(`Creating ${componentName} folder`);
   const formatedComponentName =
     componentName.charAt(0).toUpperCase() + componentName.slice(1);
 
@@ -29,12 +29,12 @@ export const createComponent = async (
 
   await delay(500);
   mkdirpSync(componentPath);
+  folderLoader.succeed('Folder created successfully');
 
   const isOnlyJs = options['onlyJs'] ? true : false;
   const extension = isOnlyJs ? 'js' : 'ts';
-  loader.clear();
-  loader.text = 'Creating component';
 
+  const componentLoader = generateLoader(`Creating ${componentName} component`);
   await createComponentFunc({
     isOnlyJs,
     componentPath,
@@ -44,9 +44,9 @@ export const createComponent = async (
     withComponents: Boolean(options['withComponents']),
     withHooks: Boolean(options['withHooks']),
   });
+  componentLoader.succeed('Component created successfully');
 
-  loader.clear();
-  loader.text = 'Creating barrel';
+  const barrelLoader = generateLoader(`Creating ${componentName} barrel`);
   const indexComponentTemplate = readFileSync(
     `${PATH.COMPONENT_TEMPLATE}/barrel.hbs`,
     'utf-8'
@@ -61,43 +61,49 @@ export const createComponent = async (
     `${componentPath}/index.${extension}`,
     indexComponentTemplateContent
   );
+  barrelLoader.succeed('Barrel created successfully');
 
   if (options['withCss'] || options['withFull']) {
-    loader.clear();
-    loader.text = 'Creating css file';
+    const cssLoader = generateLoader(`Creating ${componentName} css file`);
     await createStyles({
       componentPath,
       componentName: formatedComponentName,
     });
+    cssLoader.succeed('Css file created successfully');
   }
 
   if (options['withStyled'] || options['withFull']) {
-    loader.clear();
-    loader.text = 'Creating styled component';
+    const styledLoader = generateLoader(
+      `Creating ${componentName} styled component`
+    );
     await createStyledComponent({
       isOnlyJs,
       componentPath,
       componentName: formatedComponentName,
     });
+    styledLoader.succeed('Styled component created successfully');
   }
+
   if (options['withComponents'] || options['withFull']) {
-    loader.clear();
-    loader.text = 'Creating  subcomponents folder';
+    const componentsLoader = generateLoader(
+      `Creating ${componentName} components folder`
+    );
     await createSubcomponent({
       isOnlyJs,
       componentPath,
     });
+    componentsLoader.succeed('Components folder created successfully');
   }
 
   if (options['withHooks'] || options['withFull']) {
-    loader.clear();
-    loader.text = 'Creating hook';
+    const hooksLoader = generateLoader(
+      `Creating ${componentName} hooks folder`
+    );
     await createSubHooks({
       isOnlyJs,
       componentPath,
     });
+    hooksLoader.succeed('Hooks folder created successfully');
   }
-  loader.stop();
-  loader.clear();
   console.log(blue(`Creation of ${formatedComponentName} component completed`));
 };

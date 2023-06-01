@@ -2,15 +2,17 @@
 
 import { textSync } from 'figlet';
 import { Command } from 'commander';
-import { createComponent, createHook } from './actions';
+import { createComponent, createConfigFile, createHook } from './actions';
 
 const main = () => {
   const program = new Command();
   program
-    .version('1.0.0')
+    .version('v1.1.0')
     .description(
       'Learn CLI Tool is a command line interface (CLI) tool designed to improve your workflow when developing applications with React.'
     );
+
+  program.command('init').action(createConfigFile);
 
   const create = program.command('create');
 
@@ -32,11 +34,13 @@ const main = () => {
     .option('-j --only-js', 'Create with js file')
     .action(createHook);
 
-  console.log(
+  program.addHelpText(
+    'before',
     textSync('Aprehende cli', {
       width: 80,
     })
   );
+
   program.parse(process.argv);
 };
 

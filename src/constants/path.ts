@@ -1,10 +1,11 @@
-import path from "path";
+import path from 'path';
 
 export const PATH = {
-  COMPONENT_TEMPLATE: path.join(__dirname, "../templates/component"),
-  HOOK_TEMPLATE: path.join(__dirname, "../templates/hook"),
+  CONFIG_TEMPLATE: path.join(__dirname, '../templates/'),
+  HOOK_TEMPLATE: path.join(__dirname, '../templates/hook'),
+  COMPONENT_TEMPLATE: path.join(__dirname, '../templates/component'),
   SUBCOMPONENT_TEMPLATE: path.join(
     __dirname,
-    "../templates/component/subcomponents"
+    '../templates/component/subcomponents'
   ),
 };
