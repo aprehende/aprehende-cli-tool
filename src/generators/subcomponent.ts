@@ -21,7 +21,7 @@ export const createSubcomponent = async ({
     componentsTemplatePath = `${PATH.SUBCOMPONENT_TEMPLATE}/typescript/test.hbs`;
 
   const componentsPath = `${componentPath}/components`;
-  const componentsFolderPath = `${componentsPath}/Test`;
+  const componentsFolderPath = `${componentsPath}/${componentName}`;
 
   const componentsTemplate = readFileSync(componentsTemplatePath, 'utf-8');
   const componentsTemplateContent = compile(componentsTemplate)({});
