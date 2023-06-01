@@ -121,4 +121,4 @@ Thanks to the following contributors who have helped with this project:
     <a href="https://github.com/aprehende/aprehende-cli-tool/commits?author=TitoWin94" title="Code">💻</a>
     </td>
   </tr>
-</table>javascriptecuador
+</table>
