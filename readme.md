@@ -1,83 +1,124 @@
-# Aprehende cli tool
+# 🚀 Aprehende CLI Tool
 
-Learn CLI Tool is a command line interface (CLI) tool designed to improve your workflow when developing applications with React.
+<p align="center">
+  <a href="https://www.typescriptlang.org/">
+    <img src="https://img.shields.io/badge/built%20with-TypeScript-blue.svg" alt="Built with TypeScript">
+  </a>
+  <a href="https://www.npmjs.com/package/aprehende-cli-tool">
+    <img src="https://img.shields.io/npm/v/aprehende-cli-tool.svg" alt="Version">
+  </a>
+</p>
 
-## Development
+Aprehende CLI Tool is a powerful command line interface (CLI) tool specifically designed to enhance your React application development workflow.
 
-Once the repo has been cloned, in order to make the build you must make a couple of adjustments
+## Installation
 
-### Compile to run
-
-To compile the project we must execute the command:
+To install Aprehende CLI Tool, you can use npm. Run the following command:
 
 ```bash
-pnpm build
+npm install -g aprehende-cli-tool
 ```
 
-This command will compile the code and also start the templates so that we can work with the project safely.
+## Usage
 
-### Execution of the command
+Aprehende CLI Tool provides various commands to streamline your React development process. Here are some examples:
 
-In order to test the command we will leave you some examples
+### Create a Normal Button Component
 
-**Normal Button component creation**:
+To create a normal button component, use the following command:
 
-```
-pnpm dev create component Button
-```
-
-**Creation of component with Js file**
-
-```
-pnpm dev create component Button
+```bash
+aprehende create component Button
 ```
 
-In this way Create with js file.
+### Create a Component with JavaScript File
 
-**Creation of component with css file**
+To create a component with a JavaScript file, use the following command:
 
-```
-pnpm dev create component Button -c
-```
-
-In this way Create with css file.
-
-**Creation of component with hooks folder**
-
-```
-pnpm dev create component Button -H
+```bash
+aprehende create component Button -j
 ```
 
-In this way create with hooks folder.
+This command will create the component with a JavaScript file.
 
-**Creation of component with styled components**
+### Create a Component with CSS File
 
-```
-pnpm dev create component Button -s
-```
+To create a component with a CSS file, use the following command:
 
-In this way create with styled components.
-
-**Creation of component with components folder**
-
-```
-pnpm dev create component Button -C
+```bash
+aprehende create component Button -c
 ```
 
-In this way create with components folder.
+This command will create the component with a CSS file.
 
-**Creation of component with all options (css, styled, components, hooks)**
+### Create a Component with Hooks Folder
 
-```
-pnpm dev create component Button -f
-```
+To create a component with a hooks folder, use the following command:
 
-In this way create with all options (css, styled, components, hooks).
-
-**Creation of hook with js file**
-
-```
-pnpm dev create component hook -j
+```bash
+aprehende create component Button -H
 ```
 
-In this way create hook with js file.
+This command will create the component with a hooks folder.
+
+### Create a Component with Styled Components
+
+To create a component with styled components, use the following command:
+
+```bash
+aprehende create component Button -s
+```
+
+This command will create the component with styled components.
+
+### Create a Component with Components Folder
+
+To create a component with a components folder, use the following command:
+
+```bash
+aprehende create component Button -C
+```
+
+This command will create the component with a components folder.
+
+### Create a Component with All Options
+
+To create a component with all options (CSS, styled components, components folder, hooks), use the following command:
+
+```bash
+aprehende create component Button -f
+```
+
+This command will create the component with all available options.
+
+### Create a Hook with JavaScript File
+
+To create a hook with a JavaScript file, use the following command:
+
+```bash
+aprehende create component hook -j
+```
+
+This command will create a hook with a JavaScript file.
+
+## License
+
+Aprehende CLI Tool is released under the MIT License. See the LICENSE file for details.
+
+# Contributors
+
+Thanks to the following contributors who have helped with this project:
+
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/jnadroj"><img src="https://github.com/jnadroj.png" width="100px;" alt="Jordan Jaramillo"/><br /><sub><b>Jordan Jaramillo</b></sub></a><br />
+    <a href="https://github.com/aprehende/aprehende-cli-tool/commits?author=jnadroj" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/geamdev"><img src="https://github.com/geamdev.png" width="100px;" alt="Geampiere Jaramillo"/><br /><sub><b>Geampiere Jaramillo</b></sub></a><br />
+    <a href="https://github.com/aprehende/aprehende-cli-tool/commits?author=geamdev" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/dcaicedoe"><img src="https://github.com/dcaicedoe.png" width="100px;" alt="Daniel Caicedo"/><br /><sub><b>Daniel Caicedo</b></sub></a><br />
+    <a href="https://github.com/aprehende/aprehende-cli-tool/commits?author=dcaicedoe" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/TitoWin94"><img src="https://github.com/TitoWin94.png" width="100px;" alt="Hector Sanchez"/><br /><sub><b>Hector Sanchez</b></sub></a><br />
+    <a href="https://github.com/aprehende/aprehende-cli-tool/commits?author=TitoWin94" title="Code">💻</a>
+    </td>
+  </tr>
+</table>javascriptecuador
