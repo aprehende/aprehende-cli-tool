@@ -26,66 +26,58 @@ In order to test the command we will leave you some examples
 pnpm dev create component Button
 ```
 
-**creation of component with Js file**
+**Creation of component with Js file**
 
 ```
-pnpm dev create component Button --only-js
+pnpm dev create component Button
 ```
 
 In this way Create with js file.
 
-**creation of component with css file**
+**Creation of component with css file**
 
 ```
-pnpm dev create component Button -c --with-css
+pnpm dev create component Button -c
 ```
 
 In this way Create with css file.
 
-**creation of component with hooks folder**
+**Creation of component with hooks folder**
 
 ```
-pnpm dev create component Button -H --with-hooks
+pnpm dev create component Button -H
 ```
 
 In this way create with hooks folder.
 
-**creation of component with styled components**
+**Creation of component with styled components**
 
 ```
-pnpm dev create component Button -s --with-styled
+pnpm dev create component Button -s
 ```
 
 In this way create with styled components.
 
-**creation of component with components folder**
+**Creation of component with components folder**
 
 ```
-pnpm dev create component Button -C --with-components
+pnpm dev create component Button -C
 ```
 
 In this way create with components folder.
 
-**creation of component with all options (css, styled, components, hooks)**
+**Creation of component with all options (css, styled, components, hooks)**
 
 ```
-pnpm dev create component Button -f --with-full
+pnpm dev create component Button -f
 ```
 
 In this way create with all options (css, styled, components, hooks).
 
-**creation of hook with js file**
+**Creation of hook with js file**
 
 ```
-pnpm dev create component hook -j --only-js
+pnpm dev create component hook -j
 ```
 
 In this way create hook with js file.
-
-**Creation of Button component with styled components**:
-
-```
-pnpm dev create component Button --with-styled
-```
-
-In this way you can test the options that you are developing.
