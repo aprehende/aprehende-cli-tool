@@ -1,6 +1,6 @@
 {
   "name": "aprehende-cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Learn CLI Tool is a command line interface (CLI) tool designed to improve your workflow when developing applications with React.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
