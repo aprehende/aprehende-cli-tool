@@ -59,7 +59,7 @@ export const createSubcomponent = async ({
 
   //subcomponent
   writeFileSync(
-    `${componentsFolderPath}/Test.${extension}x`,
+    `${componentsFolderPath}/${componentName}.${extension}x`,
     componentsTemplateContent
   );
 };
