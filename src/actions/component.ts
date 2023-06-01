@@ -1,6 +1,5 @@
 import { join } from 'path';
 import { blue } from 'colors';
-import loading from 'loading-cli';
 import { PATH } from '../constants';
 import { delay, generateLoader } from '../utilities';
 import { compile } from 'handlebars';

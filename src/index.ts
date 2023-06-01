@@ -3,6 +3,7 @@
 import { textSync } from 'figlet';
 import { Command } from 'commander';
 import { createComponent, createConfigFile, createHook } from './actions';
+import { generateTemplate } from './actions';
 
 const main = () => {
   const program = new Command();
@@ -13,6 +14,11 @@ const main = () => {
     );
 
   program.command('init').action(createConfigFile);
+
+  program
+    .command('generate')
+    .command('template <templateName>')
+    .action(generateTemplate);
 
   const create = program.command('create');
 
