@@ -26,14 +26,14 @@ export const createSubcomponent = async ({
   const componentsTemplate = readFileSync(componentsTemplatePath, 'utf-8');
   const componentsTemplateContent = compile(componentsTemplate)({});
   const componentsIndexTemplate = readFileSync(
-    `${PATH.SUBCOMPONENT_TEMPLATE}/barrel.hbs`,
+    `${PATH.COMPONENT_TEMPLATE}/barrel.hbs`,
     'utf-8'
   );
   const componentsIndexTemplateContent = compile(componentsIndexTemplate)({
     componentName,
   });
   const componentsIndexAsTemplate = readFileSync(
-    `${PATH.SUBCOMPONENT_TEMPLATE}/barrel.hbs`,
+    `${PATH.COMPONENT_TEMPLATE}/barrel.hbs`,
     'utf-8'
   );
   const componentsIndexAsTemplateContent = compile(componentsIndexAsTemplate)({
