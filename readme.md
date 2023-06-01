@@ -4,8 +4,8 @@
   <a href="https://www.typescriptlang.org/">
     <img src="https://img.shields.io/badge/built%20with-TypeScript-blue.svg" alt="Built with TypeScript">
   </a>
-  <a href="https://www.npmjs.com/package/aprehende-cli-tool">
-    <img src="https://img.shields.io/npm/v/aprehende-cli-tool.svg" alt="Version">
+  <a href="https://www.npmjs.com/package/aprehende-cli">
+    <img src="https://img.shields.io/npm/v/aprehende-cli.svg" alt="Version">
   </a>
 </p>
 
@@ -16,7 +16,7 @@ Aprehende CLI Tool is a powerful command line interface (CLI) tool specifically 
 To install Aprehende CLI Tool, you can use npm. Run the following command:
 
 ```bash
-npm install -g aprehende-cli-tool
+npm install -g aprehende-cli
 ```
 
 ## Usage

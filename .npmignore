@@ -1,0 +1,5 @@
+src 
+tsconfig.json
+.prettierrc
+initTemplate.js
+cleanProject.js
