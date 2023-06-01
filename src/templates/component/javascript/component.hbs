@@ -1,6 +1,6 @@
 import React from 'react';
 {{#if withComponents}}
-import { Button } from './components';
+import { Test } from './components';
 {{/if}}
 {{#if withHooks}}
 import { useHello } from './hooks';
@@ -28,7 +28,7 @@ const {{ componentName }} = () => {
       <div>
     {{/if}}
         {{#if withComponents}}
-          <Button />
+          <Test />
         {{else}}
           {{componentName}} Component
         {{/if}}
