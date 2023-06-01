@@ -1,5 +1,5 @@
 src 
 tsconfig.json
 .prettierrc
-initTemplate.js
+initTemplates.js
 cleanProject.js
