@@ -1,4 +1,10 @@
 import React from 'react';
+{{#if withHooks}}
+import { useHello } from './hooks';
+{{/if}}
+{{#if withComponents}}
+import { Button } from './components';
+{{/if}}
 {{#if withStyled}}
 import { {{ componentName }} } from './{{ componentName }}.styles';
 {{/if}}
@@ -8,13 +14,25 @@ import './{{ componentName }}.css';
 
 interface {{ componentName }}Props {}
 const {{ componentName }}: React.FC<{{ componentName }}Props> = () => {
+{{#if withHooks}}
+  const { greet } = useHello();
+
+  React.useEffect(() => {
+    greet();
+  }, []);
+{{/if}}
+
   return (
   {{#if withStyled}}
     <{{ componentName }}>
   {{else}}
     <div>
   {{/if}}
-        {{ componentName }} Component
+      {{#if withComponents}}
+        <Button />
+      {{else}}
+        {{componentName}} Component
+      {{/if}}
   {{#if withStyled}}
     </{{ componentName }}>
   {{else}}

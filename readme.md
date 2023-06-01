@@ -26,10 +26,58 @@ In order to test the command we will leave you some examples
 pnpm dev create component Button
 ```
 
-**Creation of Button component with styled components**:
+**Creation of component with Js file**
 
 ```
-pnpm dev create component Button --with-styled
+pnpm dev create component Button
 ```
 
-In this way you can test the options that you are developing.
+In this way Create with js file.
+
+**Creation of component with css file**
+
+```
+pnpm dev create component Button -c
+```
+
+In this way Create with css file.
+
+**Creation of component with hooks folder**
+
+```
+pnpm dev create component Button -H
+```
+
+In this way create with hooks folder.
+
+**Creation of component with styled components**
+
+```
+pnpm dev create component Button -s
+```
+
+In this way create with styled components.
+
+**Creation of component with components folder**
+
+```
+pnpm dev create component Button -C
+```
+
+In this way create with components folder.
+
+**Creation of component with all options (css, styled, components, hooks)**
+
+```
+pnpm dev create component Button -f
+```
+
+In this way create with all options (css, styled, components, hooks).
+
+**Creation of hook with js file**
+
+```
+pnpm dev create component hook -j
+```
+
+In this way create hook with js file.

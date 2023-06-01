@@ -1,4 +1,10 @@
 import React from 'react';
+{{#if withComponents}}
+import { Test } from './components';
+{{/if}}
+{{#if withHooks}}
+import { useHello } from './hooks';
+{{/if}}
 {{#if withStyled}}
 import { {{ componentName }} } from './{{ componentName }}.styles';
 {{/if}}
@@ -7,13 +13,25 @@ import './{{ componentName }}.css';
 {{/if}}
 
 const {{ componentName }} = () => {
+{{#if withHooks}}
+  const { greet } = useHello();
+
+  React.useEffect(() => {
+    greet();
+  }, []);
+{{/if}}
+
   return (
     {{#if withStyled}}
       <{{ componentName }}>
     {{else}}
       <div>
     {{/if}}
-        {{ componentName }} Component
+        {{#if withComponents}}
+          <Test />
+        {{else}}
+          {{componentName}} Component
+        {{/if}}
     {{#if withStyled}}
       </{{ componentName }}>
     {{else}}
