@@ -1,7 +1,7 @@
 import { join } from 'path';
 import { blue } from 'colors';
 import { PATH } from '../constants';
-import { delay, generateLoader } from '../utilities';
+import { delay, generateLoader, getConfiguration } from '../utilities';
 import { compile } from 'handlebars';
 import { writeFileSync, readFileSync, mkdirpSync } from 'fs-extra';
 import {
@@ -20,6 +20,8 @@ export const createComponent = async (
   componentName: string,
   options: IOptions
 ) => {
+  const configuration = getConfiguration();
+  console.log(configuration, null, 2);
   const folderLoader = generateLoader(`Creating ${componentName} folder`);
   const formatedComponentName =
     componentName.charAt(0).toUpperCase() + componentName.slice(1);
